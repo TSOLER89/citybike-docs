@@ -163,4 +163,6 @@ Beräkning: 43 200 × 0,003 = 129,6 minuter.
 Svar: API:et får vara otillgängligt i högst
 129,6 minuter under en period på 30 dagar.
 
-## 4. Skillnad mot ett annat par
+## 4. Skillnad mot ett annat par (Nicolina)
+
+Jag prioriterade Safety högst eftersom ett fel i cykelns batterisystem kan orsaka personskador. Det andra paret (Nicolina) prioriterade Security högst eftersom CityBike hanterar personuppgifter och har flera brister i åtkomstkontrollen. Skillnaden beror på att jag fokuserade mer på den fysiska säkerheten, medan det andra paret fokuserade på informationssäkerhet.
