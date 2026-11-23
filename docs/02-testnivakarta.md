@@ -121,3 +121,21 @@ reseuppgifter.
 Nivå: integration
 
 Testtyp: Funktionellt säkerhetstest, svartlåda.
+
+## Kontrollfrågor
+
+### 1. Felaktigt pris för 61 sekunder
+
+Felet hittas billigast med ett enhetstest eftersom
+vi kan testa prisberäkningen direkt utan andra
+systemdelar. T1 ligger närmast eftersom det testar
+PriceCalculator, men vi behöver lägga till ett
+test för 61 sekunder där rätt pris ska vara 15 kr.
+
+### 2. Svåraste testfallet
+
+T5 var svårast att placera eftersom jag tvekade mellan
+integrationstest och systemtest. Jag tänkte först att det
+var ett integrationstest eftersom flera komponenter
+kommunicerar med varandra, men eftersom hela
+upplåsningsflödet testas passar systemtest bättre.
