@@ -110,3 +110,54 @@ Artikel: Art. 30 Register över behandlingar
 Risk: Medel
 Åtgärd: Skapa och underhåll en förteckning över personuppgiftsbehandlingar med information om ändamål, kategorier av uppgifter, mottagare och lagringstider.
 Testfall: Granska förteckningen och kontrollera att alla CityBikes personuppgiftsbehandlingar är dokumenterade (acceptanstest).
+
+## A10
+
+Rutin: R11
+
+Vad: CityBike lagrar lösenord med SHA-256 utan salt,
+vilket gör det lättare för angripare att knäcka
+lösenorden om databasen läcker.
+
+Artikel: Art. 32 – Säkerhet vid behandling
+
+Risk: Hög
+
+Åtgärd: Ersätt SHA-256 med en säker metod för
+lösenordshashning, exempelvis ASP.NET Core Identity
+PasswordHasher, som använder salt och en
+lösenordsanpassad hashfunktion.
+
+Testfall: Registrera två användare med samma lösenord
+och kontrollera att olika saltade hashvärden lagras
+i databasen och att båda kan logga in (integrationstest).
+
+## Incident R10
+
+Tidpunkt för kännedom: tisdag 3 mars 2026 kl. 14:20
+Frist för anmälan (datum och klockslag): fredag 6 mars 2026 kl. 14:20
+Anmäla till IMY: JA
+Informera berörda kunder: Nej, inte utifrån den information som finns.
+Motivering: Incidenten bör anmälas till IMY eftersom personuppgifter om 2 100 kunder har skickats till en obehörig mottagare. Risken för exempelvis nätfiske och oönskade kontakter kan inte uteslutas.
+Däremot bedöms risken inte som tillräckligt hög för att information till kunderna ska vara obligatorisk
+enligt artikel 34. Bedömningen behöver omprövas om det visar sig att uppgifterna har spridits vidare.
+
+Åtgärder för att förhindra upprepning:
+
+1. Inför en varning när e-postmeddelanden med personuppgifter skickas till externa mottagare. Användaren måste kontrollera mottagaradressen innan meddelandet skickas.
+
+2. Begränsa möjligheten att exportera kunduppgifter genom rollbaserad behörighetskontroll. Endast behörig personal ska kunna exportera större mängder personuppgifter.
+
+## Kontrollfrågor
+
+### 1. När får personnummer användas?
+
+Personnummer får användas när det finns ett tydligt behov av säker identifiering. CityBike använder personnummer för ålderskontroll och påminnelsefakturor, men behöver visa varför hela personnumret är nödvändigt. Åldern kan exempelvis kontrolleras på ett annat sätt.
+
+### 2. Varför räcker inte Inactive?
+
+Att ändra Users.Status till Inactive räcker inte eftersom kundens personuppgifter fortfarande finns kvar i databasen. Enligt GDPR artikel 17 måste CityBike kunna hantera begäranden om radering och ta bort uppgifter som inte längre behöver sparas, om det inte finns en giltig anledning att behålla dem.
+
+### 3. Vilken testnivå används för behörighetskontroll?
+
+Integrationstest passar bäst om vi testar API:ets behörighetskontroll tillsammans med dataåtkomsten.
